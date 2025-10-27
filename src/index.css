@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #1F2937;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  @apply max-w-[1440px] mx-auto px-6;
+}
+
+@keyframes waveMotion {
+  0% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(12px) scaleY(1.03); }
+  100% { transform: translateY(0) scaleY(1); }
+}
+
