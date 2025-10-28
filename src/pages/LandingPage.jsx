@@ -1,11 +1,13 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import Features from "../components/Features";
 import CTA from "../components/Cta";
-
+import { useAuth } from "../context/AuthContext";
 
 const LandingPage = () => {
+  const { session } = useAuth();
+
   return (
     <>
       {/* Navbar */}
@@ -22,24 +24,33 @@ const LandingPage = () => {
             Book Anything. Go Anywhere.
           </h1>
           <p className="text-xl mb-10 opacity-95 max-w-2xl mx-auto">
-            Book flights, concerts, events, and transportation seamlessly. One app
-            for every journey and experience.
+            Book flights, concerts, events, and transportation seamlessly. One
+            app for every journey and experience.
           </p>
           <div className="flex justify-center flex-wrap gap-6">
-            <Link to="/auth/signup"
-              className="px-10 py-4 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-500 shadow-lg hover:-translate-y-1 transition-transform"
-            >
-              Get Started
-            </Link>
-            <a
-              href="/signup"
-              className="px-10 py-4 rounded-lg font-semibold text-blue-600 bg-white hover:-translate-y-1 transition-transform shadow-lg"
-            >
-              Learn More
-            </a>
+            {session ? (
+              <>
+                <Link to="/dashboard" className="px-10 py-4 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-500 shadow-lg hover:-translate-y-1 transition-transform">Get started</Link>
+                <Link to="/tickets" className="px-10 py-4 rounded-lg font-semibold text-blue-600 bg-white hover:-translate-y-1 transition-transform shadow-lg">Learn More</Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/auth/signup"
+                  className="px-10 py-4 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-500 shadow-lg hover:-translate-y-1 transition-transform"
+                >
+                  Get Started
+                </Link>
+                <a
+                  href="/signup"
+                  className="px-10 py-4 rounded-lg font-semibold text-blue-600 bg-white hover:-translate-y-1 transition-transform shadow-lg"
+                >
+                  Learn More
+                </a>
+              </>
+            )}
           </div>
         </div>
-
       </section>
 
       <svg
@@ -55,7 +66,6 @@ const LandingPage = () => {
         />
       </svg>
 
-
       {/* Main page */}
       <Features />
       <CTA />
@@ -64,6 +74,6 @@ const LandingPage = () => {
       <Footer />
     </>
   );
-}
+};
 
-export default LandingPage
+export default LandingPage;
