@@ -16,8 +16,8 @@ const LandingPage = () => {
         <div className="absolute top-[-200px] right-[-100px] w-[400px] h-[400px] bg-white opacity-10 rounded-full"></div>
         <div className="absolute bottom-[50px] left-[-150px] w-[250px] h-[250px] bg-white opacity-5 rounded-full"></div>
 
-        <div className="container relative text-center z-10">
-          <h1 className="text-5xl font-extrabold mb-6 leading-tight">
+        <div className="container relative text-center z-10 pt-5">
+          <h1 className="md:text-6xl text-3xl font-extrabold mb-6 leading-tight">
             {/* Your All-in-One Ticketing Solution */}
             Book Anything. Go Anywhere.
           </h1>

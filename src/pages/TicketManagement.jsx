@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,6 +5,8 @@ import { ticketSchema } from "../validation/ticketSchema";
 import { toast } from "react-hot-toast";
 
 import TicketCard from "../components/TicketCard";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const TicketManagement = () => {
   const [tickets, setTickets] = useState([]);
@@ -58,55 +59,141 @@ const TicketManagement = () => {
   };
 
   return (
-    <div className="max-w-[1440px] mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-teal-700">Ticket Management</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-6 rounded-lg shadow-md mb-8"
-      >
-        <input
-          {...register("title")}
-          placeholder="Ticket Title"
-          className="w-full border p-2 rounded mb-2"
-        />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+    <>
+      <Navbar />
+      <main className="max-w-[1440px] mx-auto py-24">
+        <div className="px-6 max-w-3xl mx-auto">
+          <h1 className="text-center text-2xl font-bold mb-4">
+            Ticket Management
+          </h1>
+          {/* <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="bg-white p-6 rounded-lg shadow mb-8 min-h-[400px]"
+          >
+            <input
+              {...register("title")}
+              placeholder="Ticket Title"
+              className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
 
-        <textarea
-          {...register("description")}
-          placeholder="Description"
-          className="w-full border p-2 rounded mb-2"
-        />
+            <textarea
+              {...register("description")}
+              placeholder="Description"
+              className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            />
 
-        <select
-          {...register("status")}
-          className="w-full border p-2 rounded mb-2"
-        >
-          <option value="">Select Status</option>
-          <option value="open">Open</option>
-          <option value="in_progress">In Progress</option>
-          <option value="closed">Closed</option>
-        </select>
-        {errors.status && <p className="text-red-500">{errors.status.message}</p>}
+            <select
+              {...register("status")}
+              className="w-full border p-2 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            >
+              <option value="">Select Status</option>
+              <option value="open">Open</option>
+              <option value="in_progress">In Progress</option>
+              <option value="closed">Closed</option>
+            </select>
+            {errors.status && (
+              <p className="text-red-500">{errors.status.message}</p>
+            )}
 
-        <button
-          type="submit"
-          className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700"
-        >
-          {editId ? "Update Ticket" : "Create Ticket"}
-        </button>
-      </form>
+            <button
+              type="submit"
+              className="bg-purple-700 text-white px-4 py-2 rounded"
+            >
+              {editId ? "Update Ticket" : "Create Ticket"}
+            </button>
+          </form> */}
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tickets.map((ticket) => (
-          <TicketCard
-            key={ticket.id}
-            ticket={ticket}
-            onEdit={() => handleEdit(ticket)}
-            onDelete={() => handleDelete(ticket.id)}
-          />
-        ))}
-      </div>
-    </div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="bg-white p-6 rounded w-full max-w-3xl mx-auto space-y-4 mt-8 shadow-md"
+          >
+            <div>
+              <label className="block font-medium">Title</label>
+              <input
+                {...register("title")}
+                placeholder="Ticket Title"
+                required
+                className="mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+              {errors.title && (
+                <p className="text-red-600 text-sm mt-1">
+                  {errors.title.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium">Status</label>
+              <select
+                {...register("status")}
+                required
+                className="mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <option value="">Select status</option>
+                <option value="open">Open</option>
+                <option value="in_progress">In Progress</option>
+                <option value="closed">Closed</option>
+              </select>
+              {errors.status && (
+                <p className="text-red-600 text-sm mt-1">
+                  {errors.status.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-medium">Description</label>
+              <textarea
+                {...register("description")}
+                rows={3}
+                className="mt-1 block w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div className="flex justify gap-4 py-3">
+              <button
+                type="submit"
+                className="px-7 py-2 rounded bg-indigo-600 text-white"
+              >
+                {editId ? "Update" : "Create"}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  reset();
+                  setEditId(null);
+                }}
+                className="px-4 py-2 rounded border"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <h2 className="text-2xl font-semibold pb-5 px-6">All Tickets</h2>
+
+        {tickets.length === 0 ? (
+          <p className="px-6 text-gray-500">No tickets created yet.</p>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
+            {tickets.map((ticket) => (
+              <TicketCard
+                key={ticket.id}
+                ticket={ticket}
+                onEdit={() => handleEdit(ticket)}
+                onDelete={() => handleDelete(ticket.id)}
+              />
+            ))}
+          </div>
+        )}
+      </main>
+      <Footer />
+    </>
   );
 };
 

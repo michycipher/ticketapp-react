@@ -76,21 +76,13 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const schema = z
-  .object({
-    name: z.string().min(2, { message: "Enter your name" }),
-    email: z.string().email({ message: "Enter a valid email" }),
-    password: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters" }),
-    confirmPassword: z
-      .string()
-      .min(6, { message: "Please confirm your password" }),
-  })
-  .refine((val) => val.password === val.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+const schema = z.object({
+  name: z.string().min(2, { message: "Enter your name" }),
+  email: z.string().email({ message: "Enter a valid email" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+});
 
 export default function Signup() {
   const { signup } = useAuth();
@@ -174,23 +166,6 @@ export default function Signup() {
               {errors.password && (
                 <p className="text-red-600 text-sm mt-1" role="alert">
                   {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                {...register("confirmPassword")}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-200"
-                aria-invalid={!!errors.confirmPassword}
-              />
-              {errors.confirmPassword && (
-                <p className="text-red-600 text-sm mt-1" role="alert">
-                  {errors.confirmPassword.message}
                 </p>
               )}
             </div>

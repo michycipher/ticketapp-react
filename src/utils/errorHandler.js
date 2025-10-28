@@ -21,19 +21,6 @@ export function handleError(error, context = "general") {
     return;
   }
 
-  if (context === "tickets") {
-    if (code === "NetworkError") {
-      toast.error("Failed to load tickets. Please retry.");
-      return;
-    }
-    if (code === "ValidationError") {
-      toast.error("Please fill in all required fields correctly.");
-      return;
-    }
-    toast.error("An error occurred while processing tickets. Please retry.");
-    return;
-  }
-
   // fallback
   toast.error("Something went wrong. Please try again.");
 }

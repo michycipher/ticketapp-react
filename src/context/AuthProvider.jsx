@@ -119,7 +119,7 @@ export const AuthProvider = ({ children }) => {
       const newUser = { name, email, password };
       users.push(newUser);
       localStorage.setItem("ticketapp_users", JSON.stringify(users));
-      toast.success("Account created. Please log in.");
+      toast.success("Account created successfully!.");
       navigate("/auth/login");
     } catch (err) {
       handleError(err, "auth");
